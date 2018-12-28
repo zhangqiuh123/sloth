@@ -1,0 +1,97 @@
+{% extends 'index.html' %}
+{% block title %}用户管理{% endblock %}
+{% block content %}
+    <div class="count">
+        <div class="count-up">
+            <table>
+                <div class="box-one">
+                    <form action="/index/UserConfig/AddUser/" method="GET">
+                        <input class="layui-btn" type="submit" value="新增用户"/>
+                    </form>
+                </div>
+                <div class="box-two">
+                    <form action="/index/UserConfig/SelectUser/" method="GET">
+                        <input class="input" type="text" name="search" placeholder="姓名/用户名/角色名">
+                        <input class="layui-btn" type="submit" value="搜索"/>
+                    </form>
+                </div>
+            </table>
+        </div>
+        <div class="layui-form">
+            <table class="layui-table">
+                <colgroup>
+                    <col width="150">
+                    <col width="150">
+                    <col width="200">
+                    <col>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>姓名</th>
+                    <th>用户名</th>
+                    <th>邮箱</th>
+                    <th>角色</th>
+                    <th>启用</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for line in user_list %}
+                    <tr>
+                        <td class="tdforversionlist" align="center">{{ line.0 }}</td>
+                        <td class="tdforversionlist" align="center">{{ line.1 }}</td>
+                        <td class="tdforversionlist" align="center">{{ line.2 }}</td>
+                        <td class="tdforversionlist" align="center">{{ line.3 }}</td>
+                        <td class="tdforversionlist" align="center">{{ line.4 }}</td>
+                        <td class="tdforversionlist" align="center">{{ line.5 }}</td>
+                        <td class="tdforversionlist" align="center">
+                            <a href="/index/UserConfig/UpdateUser/?userid={{line.0}}"><font style="color:deepskyblue; font-size:16px; font-weight:bold">编辑</font></a>
+                            <a href="/index/UserConfig/DelUser/?userid={{line.0}}"><font style="color:deepskyblue; font-size:16px; font-weight:bold">删除</font></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div id="demo7"></div>
+        <div class="count-down">
+            <nav aria-label="Page navigation">
+                {% if user_list.has_previous %}
+                        <a href="?page={{ user_list.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">上一页</span>
+                        </a>
+                {% endif %}
+                {% for page_num in user_list.paginator.page_range %}
+                    {% if user_list.number == page_num %}
+                        <a href="?page={{ page_num }}">{{ page_num }}</a>
+                    {% else %}
+                        <a href="?page={{ page_num }}">{{ page_num }}</a>
+                    {% endif %}
+                {% endfor %}
+                {% if user_list.has_next %}
+                        <a href="?page={{ user_list.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">下一页</span>
+                        </a>
+                {% endif %}
+            </nav>
+        </div>
+    </div>
+    <script>
+        function adduser() {
+            $.ajax({
+                type: "post",
+                url: "/AddUser/",
+                data: {},
+                cache: false,
+                async: true,
+                dataType: 'json',
+               success: function (data) {
+                    layer.alert(data.code, function(index){
+ location.reload();
+});
+                }
+            });
+        }
+    </script>
+{% endblock %}

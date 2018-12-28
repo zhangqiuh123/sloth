@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name=“author” content=“walter”>
+    <meta name=“copright” content=“sloth2.0”>
+    <title>{% block title %}首页{% endblock %}- 树懒</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/static/icon/iconsl.png"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/index.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/button.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/a.css"/>
+    <link rel="stylesheet" href="https://heerey525.github.io/layui-v2.4.3/layui/css/layui.css" media="all">
+    <script src="https://heerey525.github.io/layui-v2.4.3/layui/layui.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/layer/2.3/layer.js"></script>
+    <style>a{text-decoration:none}</style>
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+	<div class="layui-header">
+        <div class="layui-logo">树懒 2.0</div>
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item"><a href="/index/">控制台</a></li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">其它系统</a>
+                    <dl class="layui-nav-child">
+                        {% for result in othersystemlist %}
+                        <dd><a href="{{ result.0 }}" {{ result.1 }}>{{ result.2 }}</a></dd>
+                        {% endfor %}
+                    </dl>
+                </li>
+            </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="/static/icon/iconsl.png" class="layui-nav-img">
+                    {{ username }}
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="/index/UserConfig/UpdateUserForSelf/">基本资料</a></dd>
+                    <dd><a href="/index/UserConfig/UpdatePassword/">修改密码</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="/LoginOut/">退出</a></li>
+        </ul>
+	</div>
+	<div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                <ol class="tree" align="center">
+                    {% for result in function %}
+                     <li class="file folderTwo"><a href="{{ result.1 }}">{{ result.0 }}</a></li>
+                    {% endfor %}
+                </ol>
+            </ul>
+        </div>
+	</div>
+    {% block content %}
+    <div class="count">
+        <div class="count-up">
+            <!--h3 align="center">这是主界面上部分！</h3-->
+        </div>
+        <div class="count-middle">
+            <h1 align="center"><br><br><font style="color: #FF6600; font-size:35px; font-weight:bold">欢迎使用树懒运维管理工具！</font></h1>
+        </div>
+        <div class="count-down">
+            <!--h3 align="center">这是主界面下部分！</h3-->
+        </div>
+    </div>
+    {% endblock %}
+    <!--div class="layui-footer footer footer-demo">
+        <div class="layui-main">
+            <p>&copy; 2018 <a href="/">sloth</a>By BrLaboratory</p>
+        </div>
+    </div-->
+</div>
+</body>
+    <script>
+    //function openurl() {
+    //    window.location.href="http://www.baidu.com";
+    //}
+        layui.use('element', function(){
+  var element = layui.element;
+});
+        function updatecheckversion() {
+            layer.open({
+                type: 2,
+                skin: 'layui-layer-rim', //加上边框
+                area: ['500px', '280px'], //宽高
+                content: '/UpdateCheackVersion/'
+            });
+        }
+        function synccheckversion() {
+            layer.open({
+                type: 2,
+                skin: 'layui-layer-rim', //加上边框
+                area: ['500px', '280px'], //宽高
+                content: '/SyncCheackVersion/'
+            });
+        }
+        //同步
+        function issync() {
+            layer.confirm('是否进行版本同步？', {
+                btn: ['同步','取消'] //按钮
+        }, function(){
+        sync();
+        });
+        }
+        //回退
+        function isrollback() {
+            layer.confirm('是否回退到昨天的版本？', {
+                btn: ['回退','取消'] //按钮
+        }, function(){
+        rollback();
+        });
+        }
+
+        function sync() {
+            $.ajax({
+                type: "post",
+                url: "/index/VersionList/VersionUpdate/",
+                data: { host: $("#host").val(),project:$("#project").val(),type:'sysnc'},
+                cache: false,
+                async: true,
+                dataType: 'json',
+               success: function (data) {
+                    layer.alert(data.code, function(index){
+ location.reload();
+});
+                }
+            });
+        }
+        function rollback() {
+            $.ajax({
+                type: "post",
+                url: "/index/VersionList/VersionUpdate/",
+                data: { host: $("#host").val(),project:$("#project").val(),type:'rollback'},
+                cache: false,
+                async: true,
+                dataType: 'json',
+               success: function (data) {
+                    layer.alert(data.code, function(index){
+ location.reload();
+});
+                }
+            });
+        }
+    </script>
+</html>

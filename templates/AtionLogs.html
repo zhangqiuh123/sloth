@@ -1,0 +1,44 @@
+{% extends 'index.html' %}
+{% block title %}操作日志{% endblock %}
+{% block content %}
+    <div class="count">
+        <div class="layui-form">
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;">
+                <legend>操作日志</legend>
+            </fieldset>
+        </div>
+        <div class="layui-form">
+            {% for result in AtionLogs_list %}
+            <ul class="layui-timeline">
+                <li class="layui-timeline-item">
+                    <i class="layui-icon layui-timeline-axis"></i>
+                    <div class="layui-timeline-content layui-text">
+                        <div class="layui-timeline-title">{{ result.0|date:"Y-m-d H:i:s" }}：{{ result.1 }} {{ result.2 }}</div>
+                    </div>
+                </li>
+            </ul>
+            {% endfor %}
+        </div>
+        <div class="count-down">
+            <nav aria-label="Page navigation">
+                {% if AtionLogs_list.has_previous %}
+                        <a href="?page={{ AtionLogs_list.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">上一页</span>
+                        </a>
+                {% endif %}
+                {% for page_num in AtionLogs_list.paginator.page_range %}
+                    {% if AtionLogs_list.number == page_num %}
+                        <a href="?page={{ page_num }}">{{ page_num }}</a>
+                    {% else %}
+                        <a href="?page={{ page_num }}">{{ page_num }}</a>
+                    {% endif %}
+                {% endfor %}
+                {% if AtionLogs_list.has_next %}
+                        <a href="?page={{ AtionLogs_list.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">下一页</span>
+                        </a>
+                {% endif %}
+            </nav>
+        </div>
+    </div>
+{% endblock %}
