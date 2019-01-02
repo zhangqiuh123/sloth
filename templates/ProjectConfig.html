@@ -1,0 +1,151 @@
+{% extends 'index.html' %}
+{% block title %}服务管理{% endblock %}
+{% block content %}
+    <div class="count">
+        <div class="count-up" style="margin-bottom: 10px">
+            <table style="margin-left: 50px;margin-up: 20px">
+                <div class="box-one">
+                    <td style="width: 120px">
+                        <form action="#" method="GET">
+                            <input class="layui-btn" type="submit" value="添加主机"/>
+                        </form>
+                    </td>
+                    <td width="120">
+                        <form action="#" method="GET">
+                            <input class="layui-btn" type="submit" value="添加项目"/>
+                        </form>
+                    </td>
+                    <td width="900">
+                        <form action="#" method="GET">
+                            <input class="layui-btn" type="submit" value="添加子项目"/>
+                        </form>
+                    </td>
+                    <td style="margin-right: auto">
+                        <form action="#" method="GET">
+                            <input class="input" type="text" name="search" placeholder="主机/IP/项目/子项目">
+                            <input class="layui-btn" type="submit" value="搜索"/>
+                        </form>
+                    </td>
+                </div>
+            </table>
+        </div>
+    <div class="count-middle">
+        <div class="layui-tab">
+            <ul class="layui-tab-title">
+                <li class="layui-this">服务预览</li>
+                <li>主机管理</li>
+                <li>项目管理</li>
+                <li>子项目管理</li>
+            </ul>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                        <div class="layui-collapse">
+                            {% for result in host_list %}
+                                <div class="layui-colla-item">
+                                    <h2 class="layui-colla-title">{{ result.0 }}</h2>
+                                    <div class="layui-colla-content layui-show">
+                                        <li class="li-serverconfig">服务器：{{ result.0 }}</li>
+                                        {% for result in address %}
+                                            <li class="li-serverconfig">IP地址：{{ result.0 }}</li>
+                                        {% endfor %}
+                                        <li class="li-serverconfig">项目：
+                                            {% for result in project_list %}
+                                                <a href="#">{{ result.0 }} </a>、
+                                            {% endfor %}
+                                        </li>
+                                        <li class="li-serverconfig">
+                                            <td width="110">
+                                                <button class="layui-btn" name="update" onclick="">编辑</button>
+                                            </td>
+                                            <td>
+                                                <button class="layui-btn" name="rollback" onclick="">删除</button>
+                                            </td>
+                                        </li>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    <div class="count-down">
+                        <nav aria-label="Page navigation" style="margin-left: 20px">
+                            {% if host_list.has_previous %}
+                                <a href="?page={{ host_list.previous_page_number }}" aria-label="Previous">
+                                    <span aria-hidden="true">上一页</span>
+                                </a>
+                            {% endif %}
+                            {% for page_num in host_list.paginator.page_range %}
+                                {% if host_list.number == page_num %}
+                                    <a href="?page={{ page_num }}">{{ page_num }}</a>
+                                {% else %}
+                                    <a href="?page={{ page_num }}">{{ page_num }}</a>
+                                {% endif %}
+                            {% endfor %}
+                            {% if host_list.has_next %}
+                                <a href="?page={{ host_list.next_page_number }}" aria-label="Next">
+                                    <span aria-hidden="true">下一页</span>
+                                </a>
+                            {% endif %}
+                        </nav>
+                    </div>
+                </div>
+                <div class="layui-tab-item">
+                    <div class="layui-form">
+                        <table class="layui-table">
+                            <colgroup>
+                                <col width="150">
+                                <col width="150">
+                                <col width="200">
+                                <col>
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>服务器名字</th>
+                                <th>IP地址</th>
+                                <th>说明</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for line in hostlist %}
+                                <tr>
+                                    <td class="tdforversionlist" align="center">{{ line.0 }}</td>
+                                    <td class="tdforversionlist" align="center">{{ line.1 }}</td>
+                                    <td class="tdforversionlist" align="center">{{ line.2 }}</td>
+                                    <td class="tdforversionlist" align="center">{{ line.3 }}</td>
+                                    <td class="tdforversionlist" align="center">
+                                        <a href="/index/RoleConfig/UpdateRole/?roleid={{ line.0 }}"><font style="color:deepskyblue; font-size:16px; font-weight:bold">编辑</font></a>
+                                        <a href="/index/RoleConfig/DelRole/?roleid={{ line.0 }}"><font style="color:deepskyblue; font-size:16px; font-weight:bold">删除</font></a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="count-down">
+                            <nav aria-label="Page navigation" style="margin-left: 20px">
+                                {% if hostlist.has_previous %}
+                                    <a href="?page={{ hostlist.previous_page_number }}" aria-label="Previous">
+                                        <span aria-hidden="true">上一页</span>
+                                    </a>
+                                {% endif %}
+                                {% for page_num in hostlist.paginator.page_range %}
+                                    {% if hostlist.number == page_num %}
+                                        <a href="?page={{ page_num }}">{{ page_num }}</a>
+                                    {% else %}
+                                        <a href="?page={{ page_num }}">{{ page_num }}</a>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if hostlist.has_next %}
+                                    <a href="?page={{ hostlist.next_page_number }}" aria-label="Next">
+                                        <span aria-hidden="true">下一页</span>
+                                    </a>
+                                {% endif %}
+                            </nav>
+                        </div>
+                </div>
+                <div class="layui-tab-item">项目管理</div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

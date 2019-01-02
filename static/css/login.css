@@ -1,0 +1,139 @@
+html, body {
+         
+			
+}
+
+.login-box{
+			background:rgba(255, 250, 2550, .5);
+            margin:200px auto;
+			border:0 solid #000;
+			width:400px;
+			height:450px;
+			border-radius: 3px 3px 3px 3px ;
+			text-align:center;
+			box-shadow: 0 0 0 1px hsla(0,0%,100%,.3) inset, 0 .5em 1em rgba(0, 0, 0, 0.2);
+}
+
+.logtit{
+	width:140px;
+	height:40px;
+	float:left;
+	/*border:0 solid red;*/
+	margin-left:130px;
+	margin-top:60px;
+	font-size:38px;
+	color: #999933;
+	/*font-family:Arial;*/
+	font-weight:bold;
+}
+
+.logimg{
+	width:180px;
+	height:122px;
+	background-image:url(/static/images/sl.png);
+	background-repeat:no-repeat;
+	float:left;
+	margin-left:240px;
+	margin-top:-110px;
+	/*border:0 solid red;*/
+}
+
+.input-group{
+	width:300px;
+	height:198px;
+	/*border:0 solid red;*/
+	text-align:center;
+	float:left;
+	margin-left:50px;
+	margin-top:100px;
+	font-size:18px;
+}
+
+.inputuser{
+	height:30px;
+	width:220px;
+	margin-top:2px;
+	border:none;
+	background-color:rgba(255,255,255,.5);
+	font-size:15px;
+	padding-left:35px;
+	background-image: url(/static/icon/user.png);
+	background-repeat:no-repeat;
+	background-position: 3px;
+	-webkit-transition:border-color ease-in-out .3s,-webkit-box-shadow ease-in-out .3s;
+	-moz-transition:border-color ease-in-out .3s,box-shadow ease-in-out .3s;
+	transition:border-color ease-in-out .5s,box-shadow ease-in-out .3s;
+	-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.1);
+	box-shadow:inset 0 1px 1px rgba(0,0,0,.1);
+
+}
+.inputuser:focus{
+	outline:0;
+	-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(91,173,255,.6);
+	box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(10,148,114,.6);
+
+}
+
+.inputpwd{
+	height:30px;
+	width:220px;
+	margin-top:40px;
+	border:0;
+	background-color:rgba(255,255,255,.5);
+	font-size:15px;
+	padding-left:35px; 
+	background-image: url(/static/icon/pwd.png) ;
+	background-repeat:no-repeat;
+	background-position: 3px;
+	-webkit-transition:border-color ease-in-out .3s,-webkit-box-shadow ease-in-out .3s;
+	-moz-transition:border-color ease-in-out .3s,box-shadow ease-in-out .3s;
+	transition:border-color ease-in-out .5s,box-shadow ease-in-out .3s;
+	-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.1);
+	box-shadow:inset 0 1px 1px rgba(0,0,0,.1);
+}
+
+.inputpwd:focus{
+	outline:0;
+	-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(91,173,255,.6);
+	box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(10,148,114,.6);
+}
+
+.loginsubmit{
+	text-decoration:none;
+	background:#2f435e;
+	color:#f2f2f2;
+	width:40px;
+	display:block;
+	border-radius:3px;
+	font-size:15px;
+	padding:10px 125px 10px 100px;
+	margin:20px auto;
+		-webkit-transition:all linear 0.20s;
+	-moz-transition:all linear 0.20s;
+	transition:all linear 0.20s;
+	
+	
+}
+.loginsubmit:hover{
+	background:#385f9e; 
+}
+.errologin{
+	height:29px;
+	width:256px;
+	margin:auto auto;
+	/*border: 0 solid   red;*/
+}
+.errosubmit{
+	height:24px;
+	width:256px;
+	margin:auto auto;
+	line-height:24px;
+	background-image:url(/static/icon/erro.png);
+	background-repeat:no-repeat;
+	border:none;
+	background-color:#FFF7D1;
+	font-size:12px;
+	border-radius: 2px;
+	color:#999;
+	display: none;
+}

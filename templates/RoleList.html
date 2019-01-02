@@ -1,0 +1,93 @@
+{% extends 'index.html' %}
+{% block title %}角色管理{% endblock %}
+{% block content %}
+    <div class="count">
+        <div class="count-up">
+            <table>
+                <div class="box-one">
+                    <form action="/index/RoleConfig/AddRole/" method="GET">
+                        <input class="layui-btn" type="submit" value="新增角色"/>
+                    </form>
+                </div>
+                <div class="box-two">
+                    <form action="/index/RoleConfig/SelectRole/" method="GET">
+                        <input class="input" type="text" name="search" placeholder="角色名">
+                        <input class="layui-btn" type="submit" value="搜索"/>
+                    </form>
+                </div>
+            </table>
+        </div>
+        <div class="layui-form">
+            <table class="layui-table">
+                <colgroup>
+                    <col width="150">
+                    <col width="150">
+                    <col width="200">
+                    <col>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>角色名</th>
+                    <th>启用</th>
+                    <th>说明</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for line in role_list %}
+                    <tr>
+                        <td class="tdforversionlist" align="center">{{ line.0 }}</td>
+                        <td class="tdforversionlist" align="center">{{ line.1 }}</td>
+                        <td class="tdforversionlist" align="center">{{ line.2 }}</td>
+                        <td class="tdforversionlist" align="center">{{ line.3 }}</td>
+                        <td class="tdforversionlist" align="center">
+                            <a href="/index/RoleConfig/UpdateRole/?roleid={{ line.0 }}"><font style="color:deepskyblue; font-size:16px; font-weight:bold">编辑</font></a>
+                            <a href="/index/RoleConfig/DelRole/?roleid={{ line.0 }}"><font style="color:deepskyblue; font-size:16px; font-weight:bold">删除</font></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div id="demo7"></div>
+        <div class="count-down">
+            <nav aria-label="Page navigation">
+                {% if role_list.has_previous %}
+                        <a href="?page={{ role_list.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">上一页</span>
+                        </a>
+                {% endif %}
+                {% for page_num in role_list.paginator.page_range %}
+                    {% if role_list.number == page_num %}
+                        <a href="?page={{ page_num }}">{{ page_num }}</a>
+                    {% else %}
+                        <a href="?page={{ page_num }}">{{ page_num }}</a>
+                    {% endif %}
+                {% endfor %}
+                {% if role_list.has_next %}
+                        <a href="?page={{ role_list.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">下一页</span>
+                        </a>
+                {% endif %}
+            </nav>
+        </div>
+    </div>
+    <script>
+        function adduser() {
+            $.ajax({
+                type: "post",
+                url: "/AddUser/",
+                data: {},
+                cache: false,
+                async: true,
+                dataType: 'json',
+               success: function (data) {
+                    layer.alert(data.code, function(index){
+ location.reload();
+});
+                }
+            });
+        }
+    </script>
+{% endblock %}

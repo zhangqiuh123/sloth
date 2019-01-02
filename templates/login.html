@@ -1,0 +1,27 @@
+{% load static %}
+<DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name=“author” content=“walter”>
+    <meta name=“copright” content=“sloth2.0”>
+    <title>用户登陆-树懒</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/static/icon/iconsl.png"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/login.css"/>
+    <link rel="stylesheet" href="https://heerey525.github.io/layui-v2.4.3/layui/css/layui.css" media="all">
+    <script src="/static/js/login.js"></script>
+</head>
+<body style="background:url(/static/images/login.jpg)">
+		<div class="login-box">
+			<div class="logtit">树懒<br/><br/><font style="color: #FF6600; font-size:23px; font-weight:bold">Sloth Login</font></div>
+			<div class="logimg"></div>
+			<form action="/islogin/" method="POST" novalidate="novalidate" class="bv-form">
+				<div class="input-group">
+                    <input type="text" id="username" name="username" class="inputuser" maxlength="15" placeholder="账号"/>
+                    <input type="password" id="password" name="password" class="inputpwd" maxlength="15" placeholder="密码"/>
+                    <input type="submit" value="登录" class="loginsubmit" />
+				</div>
+			</form>
+		</div>
+</body>
+</html>
